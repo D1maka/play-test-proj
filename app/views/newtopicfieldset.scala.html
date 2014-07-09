@@ -1,4 +1,4 @@
-@(topicForm: Form[Topic])
+@(topicForm: play.data.Form[Topic])
 
 @import bootstrap3._
 
@@ -14,7 +14,7 @@
 
     @text(topicForm("topicSubject"), label = "Subject", placeholder = "", help = "Please enter subject (optional)")
 
-    @text(topicForm("topicComment"), label = "Comment", placeholder = "", help = "Pleace enter comment (required)")
+    @textarea(topicForm("topicComment"), label = "Comment", placeholder = "", help = "Pleace enter comment (required)")
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
