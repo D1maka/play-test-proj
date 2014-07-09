@@ -1,0 +1,9 @@
+@(newTopicForm: Form[Topic])
+
+@import helper._
+
+@main("Test") {
+    @form(routes.Application.createTopic()){
+        @newtopicfieldset(newTopicForm)
+    }
+}
