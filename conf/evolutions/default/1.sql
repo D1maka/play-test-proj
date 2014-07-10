@@ -8,7 +8,6 @@ create table topic (
   topic_name                varchar(255),
   topic_subject             varchar(255),
   topic_comment             varchar(255),
-  creation_date             timestamp,
   constraint pk_topic primary key (topic_id))
 ;
 

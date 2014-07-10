@@ -6,13 +6,16 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Application extends Controller {
 
+    public static List<Topic> topicsList = new ArrayList<>();
+
     public static Result getTopics() {
-        List<Topic> existingTopics = Topic.find.all();
-        return ok(topics.render(existingTopics));
+//        List<Topic> existingTopics = Topic.find.all();
+        return ok(topics.render(topicsList));
     }
 
     public static Result newTopic() {
@@ -23,13 +26,12 @@ public class Application extends Controller {
 
     public static Result createNewTopic() {
         Form<Topic> form = Form.form(Topic.class).bindFromRequest();
-        if (form.hasErrors()) {
 
-        } else {
-            Topic newTopic = form.get();
-            Topic.store(newTopic);
-        }
+        Topic newTopic = form.get();
+        System.out.println(newTopic);
+        topicsList.add(newTopic);
 
-        return getTopics();
+//        List<Topic> existingTopics = Topic.find.all();
+        return redirect("/topics");
     }
 }

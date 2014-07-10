@@ -7,18 +7,26 @@
         <button id="newTopicBtn" type="submit" class="btn btn-primary" value="newTopic">Create new topic</button>
 
         <table class="table">
-            <th>
-                <td>Topic name</td>
-                <td>Topic subject</td>
-                <td>Topic creation date</td>
-            </th>
-            <tr>
-            @for(topic <- topicList) {
-                <td>topic.topicName</td>
-                <td>topic.topicSubject</td>
-                <td>topic.creationDate</td>
-            }
-            </tr>
+            <thead>
+                <tr>
+                    <th>Topic name</th>
+                    <th>Topic subject</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @for(topic <- topicList) {
+                    <tr>
+                        <td>@topic.topicName</td>
+                        <td>@topic.topicSubject</td>
+
+                    </tr>
+                }
+
+            </tbody>
+
         </table>
 
         <script type="text/javascript">

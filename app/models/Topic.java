@@ -18,20 +18,20 @@ public class Topic extends Model {
     public static final int MAX_SUBJECT_LENGTH = 50;
 
     @Id
-    private Long topicId;
+    public Long topicId;
 
     @Constraints.Required(message = "This field is required")
     @Constraints.MaxLength(value = MAX_TOPIC_NAME_LENGTH)
-    private String topicName;
+    public String topicName;
 
     @Constraints.MaxLength(value = MAX_SUBJECT_LENGTH)
-    private String topicSubject;
+    public String topicSubject;
 
     @Constraints.Required
-    private String topicComment;
+    public String topicComment;
 
-    @Constraints.Required
-    private Date creationDate;
+//    @Constraints.Required
+//    public Date creationDate;
 
     public Topic() {
 
@@ -67,13 +67,13 @@ public class Topic extends Model {
         this.topicSubject = topicSubject;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+//    public Date getCreationDate() {
+//        return creationDate;
+//    }
+//
+//    public void setCreationDate(Date creationDate) {
+//        this.creationDate = creationDate;
+//    }
 
     public String getTopicComment() {
         return topicComment;
