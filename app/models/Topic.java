@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -19,7 +20,7 @@ public class Topic extends Model {
     @Id
     private Long topicId;
 
-    @Constraints.Required
+    @Constraints.Required(message = "This field is required")
     @Constraints.MaxLength(value = MAX_TOPIC_NAME_LENGTH)
     private String topicName;
 
@@ -34,6 +35,12 @@ public class Topic extends Model {
 
     public Topic() {
 
+    }
+
+    public static Finder<Long, Topic> find = new Finder<Long, Topic>(Long.class, Topic.class);
+
+    public static void store(Topic topic) {
+        Ebean.save(topic);
     }
 
     public Long getTopicId() {

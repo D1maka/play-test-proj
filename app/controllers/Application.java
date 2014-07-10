@@ -6,15 +6,30 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
+import java.util.List;
+
 public class Application extends Controller {
 
-    public static Result createTopic() {
-        Form<Topic> newTopic = Form.form(Topic.class);
-        return ok(createtopic.render(newTopic));
+    public static Result getTopics() {
+        List<Topic> existingTopics = Topic.find.all();
+        return ok(topics.render(existingTopics));
+    }
+
+    public static Result newTopic() {
+//        return redirect("/topics/new");
+        Form<Topic> form = Form.form(Topic.class);
+        return ok(createtopic.render(form));
     }
 
     public static Result createNewTopic() {
         Form<Topic> form = Form.form(Topic.class).bindFromRequest();
-        return ok(createtopic.render(form));
+        if (form.hasErrors()) {
+
+        } else {
+            Topic newTopic = form.get();
+            Topic.store(newTopic);
+        }
+
+        return getTopics();
     }
 }
