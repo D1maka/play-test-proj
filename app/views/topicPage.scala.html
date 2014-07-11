@@ -1,0 +1,36 @@
+@(topic: Topic, comments: List[Comment], newCommentForm: Form[Application.NewCommentData])
+
+@import helper.form
+@import bootstrap3.textarea
+
+@main("Topic") {
+        <div class="page-header">
+            <h1>
+                @topic.topicName
+                <small>@topic.topicSubject</small>
+            </h1>
+        </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div align="left">@topic.topicName</div>
+            <div align="right">@topic.creationDate</div>
+        </div>
+        <div class="panel-body">@topic.topicComment</div>
+    </div>
+
+        @if(comments != null) {
+            @for(comment <- comments) {
+                <div class="well well-sm">
+                    @comment.commentText
+                </div>
+            }
+        }
+
+        @form(action = routes.Application.newComment(Long.parseLong(flash().get("topicId")))) {
+            <h3>Comment</h3>
+            <div align="left">
+                @textarea(newCommentForm("comment"), label = "", help = "")
+            </div>
+            <button id="submit" type="submit"  class="btn btn-primary">Add comment</button>
+        }
+}

@@ -1,12 +1,15 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.ExpressionList;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Dmytro_Veres on 7/9/2014.
@@ -30,8 +33,8 @@ public class Topic extends Model {
     @Constraints.Required
     public String topicComment;
 
-//    @Constraints.Required
-//    public Date creationDate;
+    @Constraints.Required
+    public Date creationDate;
 
     public Topic() {
 
@@ -43,43 +46,17 @@ public class Topic extends Model {
         Ebean.save(topic);
     }
 
-    public Long getTopicId() {
-        return topicId;
+    public static List<Comment> getTopicComments(Topic topic) {
+        ExpressionList<Comment> commentsExpression = Comment.find.where().eq("topic", topic);
+        List<Comment> comments = new ArrayList<>();
+        if (commentsExpression != null) {
+            comments = commentsExpression.orderBy("commentDate desc").findList();
+        }
+        return comments;
     }
 
-    public void setTopicId(Long topicId) {
-        this.topicId = topicId;
-    }
-
-    public String getTopicName() {
-        return topicName;
-    }
-
-    public void setTopicName(String topicName) {
-        this.topicName = topicName;
-    }
-
-    public String getTopicSubject() {
-        return topicSubject;
-    }
-
-    public void setTopicSubject(String topicSubject) {
-        this.topicSubject = topicSubject;
-    }
-
-//    public Date getCreationDate() {
-//        return creationDate;
-//    }
-//
-//    public void setCreationDate(Date creationDate) {
-//        this.creationDate = creationDate;
-//    }
-
-    public String getTopicComment() {
-        return topicComment;
-    }
-
-    public void setTopicComment(String topicComment) {
-        this.topicComment = topicComment;
+    public static boolean isUnique(String topicName) {
+        List<Topic> topics = find.where().eq("topicsName", topicName).findList();
+        return topics.size() == 0;
     }
 }

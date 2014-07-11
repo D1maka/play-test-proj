@@ -1,59 +1,38 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
  * Created by Dmytro_Veres on 7/9/2014.
  */
+@Entity
 public class Comment extends Model {
     @Id
-    private Long commentId;
+    public Long commentId;
 
     @Constraints.Required
-    private Topic topic;
+    @ManyToOne(targetEntity = Topic.class)
+    public Topic topic;
 
     @Constraints.Required
-    private String commentText;
+    public String commentText;
 
     @Constraints.Required
-    private Date commentDate;
+    public Date commentDate;
 
     public Comment() {
     }
 
-    public Long getCommentId() {
-        return commentId;
-    }
+    public static Finder<Long, Comment> find = new Finder<Long, Comment>(Long.class, Comment.class);
 
-    public void setCommentId(Long commentId) {
-        this.commentId = commentId;
-    }
-
-    public String getCommentText() {
-        return commentText;
-    }
-
-    public void setCommentText(String commentText) {
-        this.commentText = commentText;
-    }
-
-    public Date getCommentDate() {
-        return commentDate;
-    }
-
-    public void setCommentDate(Date commentDate) {
-        this.commentDate = commentDate;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public static void store(Comment comment) {
+        Ebean.save(comment);
     }
 }
