@@ -45,7 +45,7 @@ public class Application extends Controller {
     public static Result topicPage(Long id) {
         Topic topicData = Topic.find.byId(id);
         Form<NewCommentData> newCommentDataForm = Form.form(NewCommentData.class);
-        flash().put("topicId", id.toString());
+//        flash().put("topicId", id.toString());
         List<Comment> comments = Topic.getTopicComments(topicData);
         return ok(topicPage.render(topicData, comments, newCommentDataForm));
     }
